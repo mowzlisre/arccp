@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card p-5" style="width: 100%;">
+    <h2 class="text-center" style="color: orange; font-weight: 500;">A R COACHING CENTER</h2>
+    <h5 class="text-center" style="color: rgb(0, 163, 0); font-weight: 500;">FOR PHYSICS</h5>
+    <h6 class="text-center" style="color: rgb(255, 61, 94); font-weight: 500;">( UG TRB, PG TRB, POLY TRB, ENGG CLGE TRB, TNSET)</h6>
+    <p class="text-center" style="color: blue;">Founder: Mr. T. Azhagappan</p>
+    <hr class="m-auto" style="width: 60%;">
+    <br>
+    <p class="text-center" style="color: blue">AR Coaching center excells in providing intensive coaching and training for
+        all government teacher recruitment board exams. <br>
+        Our instituition beleives developing self esteem and self confidence which is the key to face any
+        circumstances. We beleive in building personalities that will guide you towards success. We kindle the thurst
+        for knowledge by providing a holistic environment.
+    </p>
+    <hr class="m-auto" style="width: 90%;">
+    <br>
+    <h6 style="color: orangered; font-weight: 400;">Co-ordinators</h6>
+    <p style="color: blue">
+        {% for site in website %}
+        {{site.coordinators}}
+        {% endfor %}
+    </p>
+</div>
+<br>
+{% endblock content %}

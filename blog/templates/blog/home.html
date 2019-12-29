@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row text-center m-auto">
+        <img src="{% for site in website %}{{site.image}}{% endfor %}" class="m-auto" width="100%">
+</div>
+<br>
+<div class="row">
+<div class="col">
+{% for post in posts %}
+    <div class="card">
+        <h5 class="card-header" style="color: white; background-color: rgb(65, 151, 150); font-weight: 400;">
+            {{post.date_posted|date:"d F, Y"}}
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'editpost' pk=post.id %}" style="float: right; color: white"><i
+                    class="fa fa-pencil"></i></a>
+            {% endif %}
+    
+        {% if post.link != "" %}
+        <a href="https://{{post.link}}" style="float: right; color: white;"><i class="fa fa-download mr-3"></i></a>
+        {% endif %}
+        </h5>
+        <div class="card-body">
+            <h4 class="card-title">{{post.title}}</h4>
+            <p class="card-text">{{post.content|safe}}</p>
+            <hr>
+            <footer class="blockquote-footer">Posted by <cite title="Source Title"> {{post.author}}</cite> in <a
+                    style="color: rgb(65, 151, 150); font-weight: bold;">{{post.tag}}</a></footer>
+        </div>
+    </div>
+    <br>
+{% endfor %}
+</div>
+<div class="col-md-4">
+    <div class="mb-2" style="box-shadow: rgba(189, 189, 189) 0px 0px 10px 1px; background-color: rgb(65, 151, 150); text-align: center; padding: 10px;">
+        <a style="color: white; font-weight: 400; font-size: 20px;">Announcements</a>
+    </div>
+    {% for announce in announces %}
+    <div style="box-shadow: rgba(104, 104, 104, 0.329) 0px 0px 8px 1px; padding: 10px; margin-bottom: 10px;">
+        <p style="margin: 2px;">{{announce}}</p>
+        <hr style="margin-top: 0px; margin-bottom: 1px;">
+        <p style="font-size: small; margin-bottom: 0;">{{announce.author}} - {{announce.time}}</p>
+    </div>
+    {% endfor %}
+</div>
+</div>
+<br>
+{% endblock content %}

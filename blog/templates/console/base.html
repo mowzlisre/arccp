@@ -1,0 +1,46 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Console ARCCP</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
+    <style>
+        @media (min-width: 992px) {
+            .width {
+                width: 75%;
+                padding: 3%;
+            }
+
+            .width-2 {
+                width: 90%;
+                margin: auto;
+            }
+
+        }
+    </style>
+</head>
+<body style="background-color: rgb(75, 75, 253);">
+    <a href="{% url 'blog-home' %}">
+        <h1 class="text-center pt-5 mb-3" style="color: white;">A R Coaching Center</h1>
+    </a>
+    {% block content %}
+    {% endblock content %}
+    <br>
+    <footer class="text-center p-3" style="background-color: black; bottom: 0px;">
+        <p style="color: white;" class="m-2">Designed and developed in <i class="fa fa-heart"></i> by <a href="www.tier3coders.com" style="color: white;">Tier3Coders</a></p>
+    </footer>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+</body>
+</html>

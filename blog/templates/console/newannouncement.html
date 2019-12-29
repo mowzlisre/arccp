@@ -1,0 +1,42 @@
+{% extends "console/base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+
+<div class="container">
+    <div class="card col- mt-5 pt-5 pl-2 pr-2 mr-auto ml-auto width"
+        style="background-color: rgba(255, 255, 255, 0.74);">
+        <h1 class="text-center">Post Form</h1><br>
+        <hr class="m-auto" style="width: 90%;">
+        <br>
+        <div class="p-2">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <label for="">Announcement</label>
+                {% render_field form.announcement class="form-control" %}
+                {% render_field form.author class="hidden" %}<br>
+                <button type="submit" class="btn btn-primary">Post</button>
+            </form>
+            <hr>
+            <div class="container mt-3">
+                <h2>Posts</h2>
+                {% for obj in objs reversed %}
+                <p class="m-1">{{obj}}
+                    <a href="{% url 'deleteannouncement' pk=obj.id %}" class="fa fa-trash float-right mr-2"></a>
+                    <a href="{% url 'editannouncement' pk=obj.id %}" class="fa fa-pencil float-right mr-3"></a>
+                </p>
+                <hr class="m-1">
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+<br>
+<br>
+{% endblock content %}
