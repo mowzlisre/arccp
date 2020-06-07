@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-5">
+    <form action="{% url 'formula' %}" method="post">
+        {% csrf_token %}
+            <label>Category</label><br>
+            <input type="text" name="catg" class="form-control">
+            <hr>
+            <div class="row">
+            <div class="col">
+                <label>Formula 1</label><br>
+                <input type="text" name="formula-1" class="form-control"><br>
+                <label>Formula 2</label><br>
+                <input type="text" name="formula-2" class="form-control"><br>
+                <label>Formula 3</label><br>
+                <input type="text" name="formula-3" class="form-control"><br>
+                <label>Formula 4</label><br>
+                <input type="text" name="formula-4" class="form-control"><br>
+                <label>Formula 5</label><br>
+                <input type="text" name="formula-5" class="form-control"><br>
+                <label>Formula 6</label><br>
+                <input type="text" name="formula-6" class="form-control"><br>
+                <label>Formula 7</label><br>
+                <input type="text" name="formula-7" class="form-control"><br>
+                <label>Formula 8</label><br>
+                <input type="text" name="formula-8" class="form-control"><br>
+                <label>Formula 9</label><br>
+                <input type="text" name="formula-9" class="form-control"><br>
+                <label>Formula 10</label><br>
+                <input type="text" name="formula-10" class="form-control">
+                <br>
+            </div>
+            <div class="col">
+                <label>Formula 11</label><br>
+                <input type="text" name="formula-11" class="form-control"><br>
+                <label>Formula 12</label><br>
+                <input type="text" name="formula-12" class="form-control"><br>
+                <label>Formula 13</label><br>
+                <input type="text" name="formula-13" class="form-control"><br>
+                <label>Formula 14</label><br>
+                <input type="text" name="formula-14" class="form-control"><br>
+                <label>Formula 15</label><br>
+                <input type="text" name="formula-15" class="form-control"><br>
+                <label>Formula 16</label><br>
+                <input type="text" name="formula-16" class="form-control"><br>
+                <label>Formula 17</label><br>
+                <input type="text" name="formula-17" class="form-control"><br>
+                <label>Formula 18</label><br>
+                <input type="text" name="formula-18" class="form-control"><br>
+                <label>Formula 19</label><br>
+                <input type="text" name="formula-19" class="form-control"><br>
+                <label>Formula 20</label><br>
+                <input type="text" name="formula-20" class="form-control">
+                <br>
+            </div>
+            <div class="col">
+                <label>Formula 21</label><br>
+                <input type="text" name="formula-21" class="form-control"><br>
+                <label>Formula 22</label><br>
+                <input type="text" name="formula-22" class="form-control"><br>
+                <label>Formula 23</label><br>
+                <input type="text" name="formula-23" class="form-control"><br>
+                <label>Formula 24</label><br>
+                <input type="text" name="formula-24" class="form-control"><br>
+                <label>Formula 25</label><br>
+                <input type="text" name="formula-25" class="form-control"><br>
+                <label>Formula 26</label><br>
+                <input type="text" name="formula-26" class="form-control"><br>
+                <label>Formula 27</label><br>
+                <input type="text" name="formula-27" class="form-control"><br>
+                <label>Formula 28</label><br>
+                <input type="text" name="formula-28" class="form-control"><br>
+                <label>Formula 29</label><br>
+                <input type="text" name="formula-29" class="form-control"><br>
+                <label>Formula 30</label><br>
+                <input type="text" name="formula-30" class="form-control">
+                <br>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>  
+{% endblock content %}

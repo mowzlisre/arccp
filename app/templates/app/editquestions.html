@@ -1,0 +1,125 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="{% static 'css/questions.css' %}">
+<style></style>
+<form action="{% url 'edit-questions' pk=test.id %}" method="post">
+    {% csrf_token %}
+    <div class="submit-buttons">
+        <a style="font-size: x-small;">Toggle to save as Draft</a>
+        <br>
+        <label class="switch mt-md-2">
+            {% if test.draft == True %}
+            <input type="checkbox" name="draft" checked>
+            {% else %}
+            <input type="checkbox" name="draft">
+            {% endif %}
+            <span class="slider round"></span>
+        </label>
+        <br>
+        <button type="submit" class="btn btn-outline-success">Submit</button>
+        <hr>
+        <div class="text-center">
+            <h1 id="total-questions">
+                <input type="text" id="counter" name="counter" class="counter" value="{{ test.questions.count }}" readonly>
+                <br></h1>
+            <hr>
+            <a onclick="cloneFunction()" class="btn btn-info text-white">Add Question</a>
+            <br>
+            <a onclick="deleteLast()" class="btn btn-danger text-white mt-md-2">Delete Last</a>
+        </div>
+    </div>
+    <div class="container card p-md-5">
+        <h1 style="font-weight: 400;">Question Entry Portal</h1>
+        <hr>
+        <label>Subject:</label>
+        <input type="text" name="subject" class="form-control" value="{{ test.subject }}" required>
+        <br>
+        <label>Title:</label>
+        <input type="text" name="title" class="form-control" value="{{ test.title }}" required>
+        <br>
+        <label>Time:</label>
+        <select type="number" name="time" class="form-control" required>
+            <option value="15" {% if test.time == 15 %}selected{% endif %}>15 Min</option>
+            <option value="30" {% if test.time == 30 %}selected{% endif %}>30 Min</option>
+            <option value="45" {% if test.time == 45 %}selected{% endif %}>45 Min</option>
+            <option value="1" {% if test.time == 1 %}selected{% endif %}>1 Hr</option>
+            <option value="2" {% if test.time == 2 %}selected{% endif %}>2 Hr</option>
+            <option value="3" {% if test.time == 3 %}selected{% endif %}>3 Hr</option>
+        </select>
+        <br>
+        <label>Description:</label>
+        <textarea name="description" class="form-control" equired>{{test.description}}</textarea>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col border-right" id="question-area">
+            {% for question in test.questions.all %}
+            <div class="card p-md-5 mb-md-3" id="question-card-{{forloop.counter}}">
+                <h3 id="question-id-{{forloop.counter}}">Question {{forloop.counter}}:</h3>
+                <hr>
+                <label>
+                    Enter question here:</label>
+                <textarea name="question-{{forloop.counter}}" id="question-{{forloop.counter}}" class="form-control" required>{{question.question}}</textarea>
+                <hr class="mb-0">
+                <label id="option" class="mt-1">
+                    Option 1: -
+                    <input type="radio" name="answer-{{forloop.counter}}" id="answer-{{forloop.counter}}" value="1"
+                        {% if question.answer == '1' %}checked{% endif %} required></label>
+                <textarea name="question-{{forloop.counter}}-1" id="question-{{forloop.counter}}-1" class="form-control" required>{{question.option1}}</textarea>
+                <label id="option" class="mt-1">
+                    Option 2: -
+                    <input type="radio" name="answer-{{forloop.counter}}" id="answer-{{forloop.counter}}" value="2"
+                        {% if question.answer == '2' %}checked{% endif %} required></label>
+                <textarea name="question-{{forloop.counter}}-2" id="question-{{forloop.counter}}-2" class="form-control" required>{{question.option2}}</textarea>
+                <label id="option" class="mt-1">
+                    Option 3: -
+                    <input type="radio" name="answer-{{forloop.counter}}" id="answer-{{forloop.counter}}" value="3"
+                        {% if question.answer == '3' %}checked{% endif %} required></label>
+                <textarea name="question-{{forloop.counter}}-3" id="question-{{forloop.counter}}-3" class="form-control" required>{{question.option3}}</textarea>
+                <label id="option" class="mt-1">
+                    Option 4: -
+                    <input type="radio" name="answer-{{forloop.counter}}" id="answer-{{forloop.counter}}" value="4"
+                        {% if question.answer == '4' %}checked{% endif %} required></label>
+                <textarea name="question-{{forloop.counter}}-4" id="question-{{forloop.counter}}-4" class="form-control" required>{{question.option4}}</textarea>
+            </div>
+            {% endfor %}
+        </div>
+</form>
+<div class="col-4">
+    <div class="card p-md-4">
+        <h5>Formula Creator</h5>
+        <hr class="m-md-0">
+        <textarea id="formula-bar" class="form-control my-2"></textarea>
+        <span class="text-dark mb-1">Click the button to copy the formula-code to the clipboard</span>
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne" style="cursor: pointer;" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    <h5 class="mb-0">
+                        <a class="btn">
+                            Greek Alphabets</a>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse show text-center" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="row m-0">
+                        <div class="col border-right" style="font-size: 16px;"> {% for formula in formulas %} {% if formula.catg == 'greek' %}
+                            <a class="but mt-2">
+                                <span>{{ formula }}</span>
+                                <span class="mx-2">-</span>
+                                <code>{{ formula }}</code>
+                            </a> {% endif %} {% endfor %}
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/clone.js' %}"></script>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br> {% endblock content %}

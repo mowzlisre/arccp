@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="card p-3">
+        <h1 class="text-center">{{test.title}}</h1>
+        <hr class="mt-0">
+        <p class="text-center">{{test.subject}}</p>
+        <div class="text-center">
+            <a class="btn border-primary">Your Score - {{reports.marks}}</a><br>
+        </div><br>
+        <form action="{% url 'submit' pk=test.id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" value="{{test.questions.count}}" name="qcount">
+            <div id="demo" class="carousel card p-md-5 p-4" interval="false">
+                <div class="carousel-inner">
+                    {% for question in test.questions.all reversed %}
+                        {% if forloop.counter == 1 %}
+                            <div class="carousel-item active">
+                            {% else %}
+                                <div class="carousel-item">
+                                {% endif %}
+                                <h3>Question
+                                    {{forloop.counter}}
+                                    <a class="float-right" id="question-{{forloop.counter}}" style="font-weight: 400;">{{forloop.counter}}/{{test.questions.count}}</a>
+                                </h3>
+                                <hr>
+                                <h6>{{question}}</h6><br>
+                                    <div>
+                                        <a class="btn">1. </a><div class="btn" id="{{forloop.counter}}-1">{{question.option1}}</div><br>
+                                    </div>
+                                    <div>                                        
+                                        <a class="btn">2. </a><div class="btn" id="{{forloop.counter}}-2">{{question.option2}}</div><br>
+                                    </div>
+                                    <div>
+                                        <a class="btn">3. </a><div class="btn" id="{{forloop.counter}}-3">{{question.option3}}</div><br>
+                                    </div>
+                                    <div>    
+                                        <a class="btn">4. </a><div class="btn" id="{{forloop.counter}}-4">{{question.option4}}</div><br>
+                                    </div>
+                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                    <a class="d-none" id="inc">+1</a>
+                                    <script>
+                                        var x = "{{ reports.choices }}";
+                                        var y = x["{{ forloop.counter0 }}"];
+                                        y = parseInt(y);
+                                        var success= "btn border-success m-1";
+                                        var red = "btn border-danger m-1";
+                                        var green = "btn bg-success m-1 text-white";
+                                        var none = "btn m-1";
+                                        var item1 = "#{{forloop.counter}}-1";
+                                        var item2 = "#{{forloop.counter}}-2";
+                                        var item3 = "#{{forloop.counter}}-3";
+                                        var item4 = "#{{forloop.counter}}-4";
+                                        if (y == 1) { 
+                                            $(item1).addClass(red)
+                                            $(item2).addClass(none)
+                                            $(item3).addClass(none)
+                                            $(item4).addClass(none)
+                                        } 
+                                        else if (y == 2) {
+                                            $(item1).addClass(none)
+                                            $(item2).addClass(red)
+                                            $(item3).addClass(none)
+                                            $(item4).addClass(none)
+                                        }
+                                        else if (y == 3) { 
+                                            $(item1).addClass(none)
+                                            $(item2).addClass(none)
+                                            $(item3).addClass(red)
+                                            $(item4).addClass(none)
+                                        }
+                                        else if (y == 4) {  
+                                            $(item1).addClass(none)
+                                            $(item2).addClass(none)
+                                            $(item3).addClass(none)
+                                            $(item4).addClass(red)                               
+                                        }
+                                        var answer = "{{question.answer}}"
+                                        if(answer == 1){
+                                            $(item1).removeClass()
+                                            $(item1).addClass(success)
+                                            if (answer == y){
+                                                $(item1).addClass(green)
+                                            }
+                                        }
+                                        else if(answer == 2){
+                                            $(item2).removeClass()
+                                            $(item2).addClass(success)
+                                            if (answer == y){
+                                                $(item2).addClass(green)
+                                            }
+                                        }
+                                        else if(answer == 3){
+                                            $(item3).removeClass()
+                                            $(item3).addClass(success)
+                                            if (answer == y){
+                                                $(item3).addClass(green)
+                                            }
+                                        }
+                                        else if(answer == 4){
+                                            $(item4).removeClass()
+                                            $(item4).addClass(success)
+                                            if (answer == y){
+                                                $(item4).addClass(green)
+                                            }
+                                        }
+
+                                    </script>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <hr>
+                    <div class="row justify-content-center">
+                        <button class="col-md col-5 btn btn-outline-secondary m-1" href="#demo" data-slide="prev">
+                            <span>Previous</span>
+                        </button>
+                        <button class="col-md col-5 btn btn-outline-secondary m-1" href="#demo" data-slide="next">
+                            <span>Next</span>
+                        </button>
+                    </div>
+                    <hr>
+                    <div class="text-center">
+                        {% for i in test.questions.all %}
+                            <a data-target="#demo" data-slide-to="{{forloop.counter0}}">{{forloop.counter}}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <br>
+                <div class="card p-md-5 p-4">
+                    <div>
+                        <label>Legend</label>
+                        <hr class="m-0 m-md-1">
+                        <div class="btn border-success"></div><a> - Correct Answer</a><br>
+                        <div class="btn bg-success"></div><a> - Answered Correctly +1</a><br>
+                        <div class="btn border-danger"></div><a> - Answered Wrongly</a><br>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <br>
+
+    {% endblock content %}
