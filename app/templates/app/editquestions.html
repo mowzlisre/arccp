@@ -1,32 +1,35 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "console/base.html" %} {% load static %} {% block content %}
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
 <link rel="stylesheet" href="{% static 'css/questions.css' %}">
-<style></style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+<br>
+
 <form action="{% url 'edit-questions' pk=test.id %}" method="post">
     {% csrf_token %}
     <div class="submit-buttons">
-        <a style="font-size: x-small;">Toggle to save as Draft</a>
+        <a style="font-size: x-small;" class="text-white">Toggle to save as Draft</a>
         <br>
         <label class="switch mt-md-2">
-            {% if test.draft == True %}
-            <input type="checkbox" name="draft" checked>
-            {% else %}
-            <input type="checkbox" name="draft">
-            {% endif %}
-            <span class="slider round"></span>
+            <input type="checkbox" {% if test.draft %} checked{% endif %} name="draft">
+            <span class="slider round "></span>
         </label>
         <br>
-        <button type="submit" class="btn btn-outline-success">Submit</button>
+        <button type="submit" class="btn btn-success ">Submit</button><br>
+        <button type="button" onclick="deleteFunction()" class="btn btn-danger">Delete Test</button>
+        <a class="d-none" id="delete-test" href="{% url 'delete-question' pk=test.id %}">Delete test</a>
         <hr>
         <div class="text-center">
             <h1 id="total-questions">
-                <input type="text" id="counter" name="counter" class="counter" value="{{ test.questions.count }}" readonly>
-                <br></h1>
+                <input type="text" id="counter" name="counter" class="counter text-white" value="{{test.questions.count}}" style="background-color: rgba(255, 255, 255, 0);" value="1" readonly>
+                <br>
+            </h1>
             <hr>
             <a onclick="cloneFunction()" class="btn btn-info text-white">Add Question</a>
-            <br>
-            <a onclick="deleteLast()" class="btn btn-danger text-white mt-md-2">Delete Last</a>
         </div>
     </div>
     <div class="container card p-md-5">
@@ -49,14 +52,18 @@
         </select>
         <br>
         <label>Description:</label>
-        <textarea name="description" class="form-control" equired>{{test.description}}</textarea>
+        <textarea name="description" class="form-control" required>{{test.description}}</textarea><br>
+        <label>Attempts:</label>
+        <input type="number " name="attempts" class="form-control" value="{{test.attempts}}" required>
+        <br>
     </div>
     <hr>
     <div class="row">
         <div class="col border-right" id="question-area">
             {% for question in test.questions.all %}
             <div class="card p-md-5 mb-md-3" id="question-card-{{forloop.counter}}">
-                <h3 id="question-id-{{forloop.counter}}">Question {{forloop.counter}}:</h3>
+                <h3 id="question-id-{{forloop.counter}}">Question {{forloop.counter}}:
+                </h3>
                 <hr>
                 <label>
                     Enter question here:</label>
@@ -67,6 +74,7 @@
                     <input type="radio" name="answer-{{forloop.counter}}" id="answer-{{forloop.counter}}" value="1"
                         {% if question.answer == '1' %}checked{% endif %} required></label>
                 <textarea name="question-{{forloop.counter}}-1" id="question-{{forloop.counter}}-1" class="form-control" required>{{question.option1}}</textarea>
+                <div id="{{forloop.counter}}-option-1-view">{{question.option1}}</div>
                 <label id="option" class="mt-1">
                     Option 2: -
                     <input type="radio" name="answer-{{forloop.counter}}" id="answer-{{forloop.counter}}" value="2"
@@ -82,6 +90,9 @@
                     <input type="radio" name="answer-{{forloop.counter}}" id="answer-{{forloop.counter}}" value="4"
                         {% if question.answer == '4' %}checked{% endif %} required></label>
                 <textarea name="question-{{forloop.counter}}-4" id="question-{{forloop.counter}}-4" class="form-control" required>{{question.option4}}</textarea>
+
+                <div><a onclick="deleteLast()" class="btn btn-danger text-white mt-md-2 btn-sm float-right">Delete</a>
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -91,13 +102,24 @@
         <h5>Formula Creator</h5>
         <hr class="m-md-0">
         <textarea id="formula-bar" class="form-control my-2"></textarea>
-        <span class="text-dark mb-1">Click the button to copy the formula-code to the clipboard</span>
+        <div id="formula-view"></div>
+        <script>
+            const input = document.getElementById("formula-bar");
+
+            const log = document.getElementById("formula-view");
+            input.addEventListener("input", updateValue);
+            function updateValue(e) {
+                log.textContent = e.target.value;
+
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+            }
+        </script>
+        <span class="text-dark mb-1 font-small">Click the button to copy the formula-code to the clipboard</span>
         <div id="accordion">
             <div class="card">
-                <div class="card-header" id="headingOne" style="cursor: pointer;" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    <h5 class="mb-0">
-                        <a class="btn">
-                            Greek Alphabets</a>
+                <div class="card-header " id="headingOne " style="cursor: pointer; " data-toggle="collapse " data-target="#collapseOne " aria-expanded="false " aria-controls="collapseOne ">
+                    <h5 class="mb-0 p-1">
+                        <a class=""> Greek Alphabets</a>
                     </h5>
                 </div>
                 <div id="collapseOne" class="collapse show text-center" aria-labelledby="headingOne" data-parent="#accordion">
@@ -116,10 +138,14 @@
         </div>
     </div>
 </div>
-<script src="{% static 'js/clone.js' %}"></script>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br> {% endblock content %}
+<script src="{% static 'js/clone.js' %}"></script>
+<script>
+    function deleteFunction() {
+        var r = confirm("Are you sure you want to delete the test?");
+        if (r == true) {
+            document.getElementById("delete-test").click()
+
+        }
+    }
+</script>{% endblock content %}

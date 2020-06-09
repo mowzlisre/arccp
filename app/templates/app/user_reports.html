@@ -1,42 +1,42 @@
-{% extends "base.html" %} {% block content %}
-<style>
-    .btn {
-        box-shadow: none;
-    }
-    
-    .btn:hover {
-        box-shadow: none;
-    }
-    
-    .border-success {
-        border: 1px solid green
-    }
-    
-    .answer {
-        width: 40px;
-        height: 40px;
-    }
-</style>
+{% extends "console/base.html" %}
+{% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/attempts.css' %}">
 <div class="card p-5">
-    <h1 class="text-center">{{test.title}}</h1>
+    <h1 class="text-center">{{report.test.title}}</h1>
     <hr class="mt-0">
-    <p class="text-center">{{test.subject}}</p>
+    <p class="text-center">{{report.test.subject}}</p>
     <div class="text-center">
-        <a class="border p-2">Your Score - {{reports.marks}}</a>
+
+
+        <a class="border p-2">Score - {{report.marks}}</a>
         <br>
+        <form id="main" action="" method="post" class="m-3">{% csrf_token %}
+            Attempts <i onclick="formSubmit()" class="fa fa-check text-white bg-success p-1" style="border-radius: 50%; cursor: pointer;"></i>
+            <script>
+                function formSubmit(){
+                    document.getElementById("main").submit()
+                }
+            </script>
+                <div class="def-number-input number-input safari_only mx-auto m-2">
+                    <a onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="pl-2"><i
+                            class="fa fa-minus"></i></a>
+                    <input class="quantity" min="0" name="quantity" value="{{report.attempts}}" type="number">
+                    <a onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="pr-2"><i
+                            class="fa fa-plus"></i></a>
+                </div>
+        </form>
     </div>
-    <br> {% csrf_token %}
-    <input type="hidden" value="{{test.questions.count}}" name="qcount">
     <div id="demo" class="carousel card p-md-5 p-4" data-interval="false">
         <div class="carousel-inner">
-            {% for question in test.questions.all %} {% if forloop.counter == 1 %}
+            {% for question in report.test.questions.all %} {% if forloop.counter == 1 %}
             <div class="carousel-item active">
                 {% else %}
                 <div class="carousel-item">
                     {% endif %}
                     <h3>
                         Question {{forloop.counter}}
-                        <a class="float-right" id="question-{{forloop.counter}}" style="font-weight: 400;">{{forloop.counter}}/{{test.questions.count}}</a>
+                        <a class="float-right" id="question-{{forloop.counter}}"
+                            style="font-weight: 400;">{{forloop.counter}}/{{report.test.questions.count}}</a>
                     </h3>
                     <hr>
                     <h6>{{question}}</h6>
@@ -68,12 +68,12 @@
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                     <a class="d-none" id="inc">+1</a>
                     <script>
-                        var x = "{{ reports.choices }}";
+                        var x = "{{ report.choices }}";
                         var y = x["{{ forloop.counter0 }}"];
                         y = parseInt(y);
                         var success = "fa fa-circle-o text-success m-1";
                         var red = "fa fa-circle-o text-danger m-1";
-                        var green = "fa fa-circle text-success m-1";
+                        var green = "fa fa-circle text-success m-1 text-white";
                         var none = "m-1";
                         var item1 = "#{{forloop.counter}}-1";
                         var item2 = "#{{forloop.counter}}-2";
@@ -142,7 +142,7 @@
             </div>
             <hr>
             <div class="text-center">
-                {% for i in test.questions.all %}
+                {% for i in report.test.questions.all %}
                 <a data-target="#demo" data-slide-to="{{forloop.counter0}}">{{forloop.counter}}</a> {% endfor %}
             </div>
         </div>

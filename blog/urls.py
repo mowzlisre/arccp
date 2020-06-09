@@ -15,6 +15,7 @@ urlpatterns=[
     path('about/', views.about, name='about'),
     #Console Views
     path('console/', c_views.console, name='console'),
+    path('notfound/', c_views.error404, name='404'),
     #PostViews
     path('console/post/', c_views.newpost, name='newpost'),
     path('console/post/<int:pk>/', c_views.editpost, name='editpost'),

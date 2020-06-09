@@ -1,57 +1,55 @@
-{% extends "console/base.html" %}
-{% block content %}
+{% extends "console/base.html" %} {% block content %}
 <div class="container">
-    <hr class="m-auto" style="width: 80%; background-color: aliceblue;">
     <br>
     <h2 style="color: white; text-align: center;">Activity</h2>
-    <a href="{% url 'newpost' %}" class="card col-lg-6 mt-4 pt-4 pb-3 mr-auto ml-auto"
-        style="background-color: rgba(255, 255, 255, 0.384);">
+    <a href="{% url 'newpost' %}" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
         <h2 style="color: white; text-align: center;">Posts<i class="fa fa-edit ml-3"></i></h2>
     </a>
-    <a href="{% url 'newannouncement' %}" class="card col-lg-6 mt-5 pt-4 pb-3 mr-auto ml-auto"
-        style="background-color: rgba(255, 255, 255, 0.384);">
+    <a href="{% url 'newannouncement' %}" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
         <h2 style="color: white; text-align: center;">Announcements<i class="fa fa-clock-o ml-3"></i></h2>
     </a>
+    <a href="{% url 'set-questions' %}" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
+        <h2 style="color: white; text-align: center;">New Test<i class="fa fa-files-o ml-3"></i></h2>
+    </a>
+    <a href="{% url 'tests' %}" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
+        <h2 style="color: white; text-align: center;">Edit Tests<i class="fa fa-pencil ml-3"></i></h2>
+    </a>
+    <a href="{% url 'reports' %}" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
+        <h2 style="color: white; text-align: center;">Get Reports<i class="far fa-file ml-3"></i></h2>
+    </a>
+    <a href="" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
+        <h2 style="color: white; text-align: center;">Manage users<i class="far fa-user ml-3"></i></h2>
+    </a>
     <br>
-    <hr class="m-auto" style="width: 80%; background-color: aliceblue;">
+    <hr class="w-75">
     <br>
     <h2 style="color: white; text-align: center;">Page Details</h2>
-    <a href="{% url 'pageedit' pk=1 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mr-auto ml-auto"
-        style="background-color: rgba(255, 255, 255, 0.384);">
+    <a href="{% url 'pageedit' pk=1 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
         <h2 style="color: white; text-align: center;">PG TRB</h2>
     </a>
-    <a href="{% url 'pageedit' pk=2 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mr-auto ml-auto"
-        style="background-color: rgba(255, 255, 255, 0.384);">
+    <a href="{% url 'pageedit' pk=2 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
         <h2 style="color: white; text-align: center;">UG TRB</h2>
     </a>
-    <a href="{% url 'pageedit' pk=3 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mr-auto ml-auto"
-        style="background-color: rgba(255, 255, 255, 0.384);">
+    <a href="{% url 'pageedit' pk=3 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
         <h2 style="color: white; text-align: center;">POLY TRB</h2>
     </a>
-    <a href="{% url 'pageedit' pk=4 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mr-auto ml-auto"
-        style="background-color: rgba(255, 255, 255, 0.384);">
+    <a href="{% url 'pageedit' pk=4 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
         <h2 style="color: white; text-align: center;">ENGG TRB</h2>
     </a>
-    <a href="{% url 'pageedit' pk=5 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mr-auto ml-auto"
-        style="background-color: rgba(255, 255, 255, 0.384);">
+    <a href="{% url 'pageedit' pk=5 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
         <h2 style="color: white; text-align: center;">TNSET</h2>
     </a>
-    <a href="{% url 'pageedit' pk=6 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mr-auto ml-auto"
-        style="background-color: rgba(255, 255, 255, 0.384);">
+    <a href="{% url 'pageedit' pk=6 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
         <h2 style="color: white; text-align: center;">SAMPLE</h2>
     </a>
-    <a href="{% url 'pageedit' pk=7 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mr-auto ml-auto"
-        style="background-color: rgba(255, 255, 255, 0.384);">
+    <a href="{% url 'pageedit' pk=7 %}" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
         <h2 style="color: white; text-align: center;">ARCHIVES</h2>
     </a>
     <br>
-    <hr class="m-auto" style="width: 80%; background-color: aliceblue;">
+    <hr class="w-75">
     <br>
     <h2 style="color: white; text-align: center;">Website Details</h2>
-    <a href="{% url 'websiteedit' %}" class="card col-lg-6 mt-4 pt-4 pb-3 mr-auto ml-auto"
-        style="background-color: rgba(255, 255, 255, 0.384);">
+    <a href="{% url 'websiteedit' %}" class="card col-lg-6 mt-4 pt-4 pb-3 mx-auto" style="background-color: rgba(255, 255, 255, 0.384);">
         <h2 style="color: white; text-align: center;">Edit Website Details</h2>
     </a>
-    <br>
-</div>
-{% endblock content %}
+</div>{% endblock content %}

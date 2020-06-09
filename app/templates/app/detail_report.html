@@ -1,0 +1,43 @@
+{% extends "console/base.html" %} {% block content %}
+<br>
+<h3 class="text-white mb-2">Your Reports:</h3>
+<a style="font-weight: 300;" class="text-white">
+    {% for report in reports %}
+    {% if forloop.counter == 1 %}Category -
+    <b>
+        {{report.test.subject}}
+    </b>
+    <span class="mx-3">|</span>
+    Test Title -
+    <b>{{report.test.title}}</b>
+    <span class="mx-3">|</span>
+    Total Questions -
+    <b>{{report.test.questions.count}}</b>
+    <span class="mx-3">|</span>
+    No. of Students  Attended -
+    <b>{{report.test.students.count}}</b>
+</a>
+<hr> {% endif %} {% endfor %} {% for report in reports %}{% if forloop.counter == 1 %}
+<a class="table-secondary nav-link text-dark px-5 mt-3">
+    <div class="px-5 row">
+        <i class="col-1 fa fa-user mt-1"></i>
+        <span class="col  text-center">User</span>
+        <span class="col-5 text-center">Attempts Rem.</span>
+        <span class="col-1 text-center">Marks</span>
+    </div>
+</a>
+{% endif %}
+<a href="{% url 'userreport' pk1=report.test.id pk2=report.user.id %}" class="table-light nav-link text-dark px-5 border-bottom">
+    <div class="px-5 row">
+        <i class="col-1 fa fa-user my-auto"></i>
+        <span class="col  text-center mt-1 my-auto">
+            {{report.user}}
+        </span>
+        <span class="col-5 my-auto text-center text-dark">{{report.attempts }}</span>
+        <span class="col-1 text-center text-bold">{{report.marks}}</span>
+    </div>
+</a>
+{% empty %}
+<hr>
+<div class="text-center text-light p-5" style="background-color: rgba(255, 255, 255, 0.212);">It seems you have no reports!</div>
+{% endfor %}{% endblock content %}

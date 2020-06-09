@@ -1,12 +1,11 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "console/base.html" %} {% block content %}
 <div class="card p-5">
     <form action="{% url 'formula' %}" method="post">
         {% csrf_token %}
-            <label>Category</label><br>
-            <input type="text" name="catg" class="form-control">
-            <hr>
-            <div class="row">
+        <label>Category</label><br>
+        <input type="text" name="catg" class="form-control">
+        <hr>
+        <div class="row">
             <div class="col">
                 <label>Formula 1</label><br>
                 <input type="text" name="formula-1" class="form-control"><br>
@@ -79,5 +78,5 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-</div>  
+</div>
 {% endblock content %}

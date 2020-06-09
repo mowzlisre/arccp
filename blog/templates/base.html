@@ -16,6 +16,8 @@
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/questions.css' %}">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
     <style>
         .marquee {
             margin: 2%;
@@ -124,6 +126,7 @@
                             </a>
                         </b>
                 </li>
+                {% if request.user.is_superuser %}
                 <li class="nav-item mr-3">
                     <b>
                             <a class="nav-link" style="color: rgb(65, 151, 150); font-weight: bold;" href="{% url 'console' %}">
@@ -131,6 +134,8 @@
                             </a>
                         </b>
                 </li>
+                  
+                {% endif %}
                 {% else %}
                 <li class="nav-item mr-3">
                     <b>
@@ -146,6 +151,7 @@
     <div class="container px-5" style="margin-top: 3%;">
         {% block content %} {% endblock content %}
     </div>
+    <br>
     <footer class="page-footer font-small pt-4" style="background-color: rgb(65, 151, 150);">
         <div class="container text-center text-md-left m-auto">
             <div class="row text-center m-auto">
@@ -174,9 +180,10 @@
             </div>
         </div>
         <div class="footer-copyright text-center py-md-3 p-md-1 py-3 px-5">
-            © Copyright {{now}}
-            <a href="">A R Coaching Center</a> - Designed and developed in
-            <i class="fa fa-heart"></i> by Mowzli Sre
+            © Copyright {% now "Y" %}
+            <a class="text-white" href="{% url 'blog-home' %}">A R Coaching Center</a> - Designed and developed in
+            <i class="fa fa-heart"></i> by
+            <a class="text-white" href="https://www.instagram.com/mowzlisre__/">Mowzli Sre</a>
             </a>
         </div>
     </footer>

@@ -16,6 +16,7 @@
                 <i class="col-1 fas fa-files-o mt-1"></i>
                 <span class="col-2">Category</span>
                 <span class="col">Test Title</span>
+                <span class="col-1 text-center">Marks</span>
                 <span class="col-2 text-center">Attempts</span>
                 <span class="col-1">Duration</span>
             </div>
@@ -24,24 +25,23 @@
         <div href="{% url 'report' pk=report.id %}" class="table-light nav-link text-dark px-5 border-bottom">
             <div class="px-5 row">
                 <i class="col-1 fa fa-files-o my-auto"></i>
-                <span class="col-2 my-auto">
-                    {{report.test.subject}}
-                </span>
+                <span class="col-2 my-auto">{{report.test.subject}}</span>
                 <span class="col mt-1 my-auto">
-                    <a class="text-dark" href="{% url 'report' pk=report.id %}">
-                        {{report.test.title}}
+                    <a class="text-dark" href="{% url 'report' pk=report.id %}">{{report.test.title}}
                     </a>
                 </span>
-                <a class="col-2 my-auto text-white text-center btn btn-outline-primary text-dark" id="attempt-{{report.id}}" href="{% url 'attend' pk=report.test.id %}">
-                    {{report.attempts}}
-                    - Take test again
+                <span class="col-1 mt-1 my-auto  text-center">
+                    <a class="text-dark" href="{% url 'report' pk=report.id %}">{{report.marks}}
+                    </a>
+                </span>
+                <a class="col-2 my-auto text-white text-center btn btn-outline-primary text-dark" id="attempt-{{report.id}}" href="{% url 'attend' pk=report.test.id %}">{{report.attempts}} - Take test again
                 </a>
                 <a class="col-2 my-auto text-center text-dark d-none" id="no-attempt-{{report.id}}">N/A</a>
                 <script>
-                    if (document.getElementById("attempt- {{report.id}}").innerHTML[0] == 0) {
-                        document.getElementById("attempt- {{report.id}}").href = "";
-                        document.getElementById("attempt- {{report.id}}").classList.add("d-none")
-                        document.getElementById("no-attempt- {{report.id}}").classList.remove("d-none")
+                    if (document.getElementById("attempt-{{report.id}}").innerHTML[0] == 0) {
+                        document.getElementById("attempt-{{report.id}}").href = "";
+                        document.getElementById("attempt-{{report.id}}").classList.add("d-none")
+                        document.getElementById("no-attempt-{{report.id}}").classList.remove("d-none")
                     }
                 </script>
                 <span class="col-1 my-auto text-center">

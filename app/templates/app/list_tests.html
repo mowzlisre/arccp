@@ -1,0 +1,65 @@
+{% extends "console/base.html" %} {% block content %}
+<br>
+<h3 class="text-white mb-3">Your Drafts:</h3>
+{% for draft in drafts %}{% if draft.draft %}{% if forloop.counter == 1 %}
+<a class="table-secondary nav-link text-dark px-5">
+    <div class="px-5 row">
+        <i class="col-1 fas fa-files-o mt-1"></i>
+        <span class="col-2">Category</span>
+        <span class="col">Test Title</span>
+        <span class="col-2 text-center">Attempts</span>
+        <span class="col-1">Duration</span>
+    </div>
+</a>
+{% endif %}
+<a href="{% url 'edit-questions' pk=draft.id %}" class="table-light nav-link text-dark px-5 border-bottom">
+    <div class="px-5 row">
+        <i class="col-1 fa fa-files-o my-auto"></i>
+        <span class="col-2 my-auto">
+                    {{draft.subject}}
+                </span>
+        <span class="col mt-1 my-auto">
+                        {{draft.title}}
+                </span>
+        <span class="col-2 my-auto text-center text-dark">{{draft.attempts}}</span>
+        <span class="col-1 my-auto text-center">
+                    {{draft.time}}
+                </span>
+    </div>
+</a>{% endif %} {% empty %}
+<hr>
+<a href="{% url 'set-questions' %}" class="card text-center text-light p-5" style="background-color: rgba(255, 255, 255, 0.212);">It seems you have no drafts! <br>
+    <span class="p-2"><i class="fa fa-plus mr-2"></i>Click to create a new Test</span>
+</a> {% endfor %}
+<br><br>
+<h3 class="text-white mb-3">Your Tests:</h3>
+{% for test in tests %}{% if test.draft == False %}{% if forloop.counter == 1 %}
+<a class="table-secondary nav-link text-dark px-5">
+    <div class="px-5 row">
+        <i class="col-1 fas fa-files-o mt-1"></i>
+        <span class="col-2">Category</span>
+        <span class="col">Test Title</span>
+        <span class="col-2 text-center">Attempts</span>
+        <span class="col-1">Duration</span>
+    </div>
+</a>
+{% endif %}
+<a href="{% url 'edit-questions' pk=test.id %}" class="table-light nav-link text-dark px-5 border-bottom">
+    <div class="px-5 row">
+        <i class="col-1 fa fa-files-o my-auto"></i>
+        <span class="col-2 my-auto">
+                    {{test.subject}}
+                </span>
+        <span class="col mt-1 my-auto">
+                        {{test.title}}
+                </span>
+        <span class="col-2 my-auto text-center text-dark">{{test.attempts}}</span>
+        <span class="col-1 my-auto text-center">
+                    {{test.time}}
+                </span>
+    </div>
+</a>{% endif %} {% empty %}
+<hr>
+<a href="{% url 'set-questions' %}" class="card text-center text-light p-5" style="background-color: rgba(255, 255, 255, 0.212);">It seems you have no test! <br>
+    <span class="p-2"><i class="fa fa-plus mr-2"></i>Click to create a new Test</span>
+</a> {% endfor %} {% endblock content %}

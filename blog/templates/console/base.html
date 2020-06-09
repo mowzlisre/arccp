@@ -1,7 +1,7 @@
-{% load static %}
-{% load widget_tweaks %}
+{% load static %} {% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,32 +15,56 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/questions.css' %}">
     <style>
         @media (min-width: 992px) {
             .width {
                 width: 75%;
                 padding: 3%;
             }
-
             .width-2 {
                 width: 90%;
                 margin: auto;
             }
-
+        }
+        
+        hr {
+            background-color: white;
         }
     </style>
 </head>
+
 <body style="background-color: rgb(75, 75, 253);">
     <a href="{% url 'blog-home' %}">
         <h1 class="text-center pt-5 mb-3" style="color: white;">A R Coaching Center</h1>
     </a>
-    {% block content %}
-    {% endblock content %}
+    <hr class="w-75">
+    <div class="container px-md-5">
+        {% block content %} {% endblock content %}
+    </div>
     <br>
-    <footer class="text-center p-3" style="background-color: black; bottom: 0px;">
-        <p style="color: white;" class="m-2">Designed and developed in <i class="fa fa-heart"></i> by <a href="www.tier3coders.com" style="color: white;">Tier3Coders</a></p>
+    <br><br><br>
+    <footer class="text-center text-white p-3 fixed-bottom" style="background-color: black; bottom: 0px;">
+        © Copyright {% now "Y" %}
+        <a class="text-white" href="{% url 'blog-home' %}">A R Coaching Center</a> - Designed and developed in
+        <i class="fa fa-heart"></i> by
+        <a class="text-white" href="https://www.instagram.com/mowzlisre__/">Mowzli Sre</a>
+        </a>
     </footer>
-    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+    <script type="text/javascript" src="{% static " ckeditor/ckeditor-init.js " %}"></script>
+    <script type="text/javascript" src="{% static " ckeditor/ckeditor/ckeditor.js " %}"></script>
+    <script src="{% static 'js/clone.js' %}"></script>
+    <script src="{% static 'js/timer.js' %}"></script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/js/mdb.min.js"></script>
 </body>
+
 </html>

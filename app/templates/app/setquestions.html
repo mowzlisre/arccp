@@ -1,23 +1,29 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "console/base.html" %} {% load static %} {% block content %}
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
 <link rel="stylesheet" href="{% static 'css/questions.css' %}">
-<style></style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+<link rel="stylesheet" href="{% static 'css/questions.css' %}">
+<br>
 <form action="{% url 'set-questions' %}" method="post">
     {% csrf_token %}
     <div class="submit-buttons">
-        <a style="font-size: x-small;">Toggle to save as Draft</a>
+        <a style="font-size: x-small;" class="text-white">Toggle to save as Draft</a>
         <br>
         <label class="switch mt-md-2">
             <input type="checkbox" name="draft">
             <span class="slider round "></span>
         </label>
         <br>
-        <button type="submit " class="btn btn-outline-success ">Submit</button>
+        <button type="submit " class="btn btn-success ">Submit</button>
         <hr>
         <div class="text-center">
             <h1 id="total-questions">
-                <input type="text" id="counter" name="counter" class="counter" value="1" readonly>
+                <input type="text" id="counter" name="counter" class="counter text-white" style="background-color: rgba(255, 255, 255, 0);" value="1" readonly>
                 <br>
             </h1>
             <hr>
@@ -29,7 +35,7 @@
     <div class="container card p-md-5 ">
         <h1 style="font-weight: 400; ">Question Entry Portal</h1>
         <hr>
-        <label>Subject:</label>
+        <label>Category:</label>
         <input type="text " name="subject" class="form-control " required>
         <br>
         <label>Title:</label>
@@ -47,6 +53,7 @@
         <br>
         <label>Description:</label>
         <textarea name="description" class="form-control " required></textarea>
+        <br>
         <label>Attempts:</label>
         <input type="number " name="attempts" class="form-control " required>
         <br>
@@ -59,21 +66,51 @@
                 <hr>
                 <label> Enter question here:</label>
                 <textarea name="question-1" id="question-1" class="form-control" required></textarea>
+                <div id="question-view-1"></div>
+                <div id="question-"></div>
                 <hr class="mb-0">
-                <label id="option" class="mt-1">Option 1: -
-                    <input type="radio" name="answer-1" id="answer-1" value="1" required>
+                <label id="option" class="mt-1">
+                    Option 1: -
+                    <input
+                        type="radio"
+                        name="answer-1"
+                        id="answer-1"
+                        value="1"
+                        required
+                    >
                 </label>
                 <textarea name="question-1-1" id="question-1-1" class="form-control" required></textarea>
-                <label id="option" class="mt-1">Option 2: -
-                    <input type="radio" name="answer-1" id="answer-1" value="2" required>
+                <label id="option" class="mt-1">
+                    Option 2: -
+                    <input
+                        type="radio"
+                        name="answer-1"
+                        id="answer-1"
+                        value="2"
+                        required
+                    >
                 </label>
                 <textarea name="question-1-2" id="question-1-2" class="form-control" required></textarea>
-                <label id="option" class="mt-1">Option 3: -
-                    <input type="radio" name="answer-1" id="answer-1" value="3" required>
+                <label id="option" class="mt-1">
+                    Option 3: -
+                    <input
+                        type="radio"
+                        name="answer-1"
+                        id="answer-1"
+                        value="3"
+                        required
+                    >
                 </label>
                 <textarea name="question-1-3" id="question-1-3" class="form-control" required></textarea>
-                <label id="option" class="mt-1">Option 4: -
-                    <input type="radio" name="answer-1" id="answer-1" value="4" required>
+                <label id="option" class="mt-1">
+                    Option 4: -
+                    <input
+                        type="radio"
+                        name="answer-1"
+                        id="answer-1"
+                        value="4"
+                        required
+                    >
                 </label>
                 <textarea name="question-1-4" id="question-1-4" class="form-control" required></textarea>
             </div>
@@ -83,13 +120,25 @@
     <div class="card p-md-4 ">
         <h5>Formula Creator</h5>
         <hr class="m-md-0 ">
-        <textarea id="formula-bar " class="form-control my-2 "></textarea>
+        <textarea id="formula-bar" class="form-control my-2"></textarea>
+        <div id="formula-view"></div>
+        <script>
+            const input = document.getElementById("formula-bar");
+
+            const log = document.getElementById("formula-view");
+            input.addEventListener("input", updateValue);
+            function updateValue(e) {
+                log.textContent = e.target.value;
+
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+            }
+        </script>
         <span class="text-dark mb-1 ">Click the button to copy the formula-code to the clipboard</span>
         <div id="accordion ">
             <div class="card ">
                 <div class="card-header " id="headingOne " style="cursor: pointer; " data-toggle="collapse " data-target="#collapseOne " aria-expanded="false " aria-controls="collapseOne ">
-                    <h5 class="mb-0 ">
-                        <a class="btn "> Greek Alphabets</a>
+                    <h5 class="mb-0 p-1">
+                        <a class=""> Greek Alphabets</a>
                     </h5>
                 </div>
                 <div id="collapseOne " class="collapse show text-center " aria-labelledby="headingOne " data-parent="#accordion ">
@@ -112,8 +161,8 @@
 </div>
 <script src="{% static 'js/clone.js' %}"></script>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>{% endblock content %}
+<script>
+    window.onbeforeunload = function() {
+        return "Data will be lost if you leave the page, are you sure?";
+    };
+</script>{% endblock content %}

@@ -35,11 +35,9 @@ function cloneFunction() {
 }
 
 function deleteLast() {
-    last = $("#question-area").children().last()
+    obj = $(this).parent().parent()
     if ($("#question-area").children().length > 1) {
-        last.remove()
+        obj.remove()
         document.getElementById("counter").value -= 1
-
     }
-
 }

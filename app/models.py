@@ -16,7 +16,8 @@ class Question(models.Model):
 
 
 class Test(models.Model):
-    subject = models.CharField(max_length=100)
+    CHOICES=(('PG TRB','PG TRB'),('POLY TRB','POLY TRB'),('ENGG TRB','ENGG TRB'),('TNSET','TNSET'),('UG TRB','UG TRB'),('SAMPLE MATERIALS','SAMPLE MATERIALS'),('ARCHIVES','ARCHIVES'))
+    subject = models.CharField(max_length=100, choices=CHOICES)
     title = models.CharField(max_length=200)
     questions = models.ManyToManyField(Question)
     time = models.SmallIntegerField()
@@ -27,7 +28,7 @@ class Test(models.Model):
     draft = models.BooleanField()
 
     def __str__(self):
-        return self.subject
+        return self.title
 
 
 class Report(models.Model):
