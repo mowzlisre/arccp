@@ -4,7 +4,8 @@
 <div class="row">
     {% for page in pages %}
     <div class="card m-auto p-5" style="width: 100%;">
-        <h1 class="text-center text-uppercase" style="font-weight: 500; color: orange">{{page.title}} EXAM - PHYSICS</h1>
+        <h1 class="text-center text-uppercase" style="font-weight: 500; color: orange">{{page.title}} EXAM - PHYSICS
+        </h1>
         <p class="text-center" style="color: blue">{{page.tagline}}</p>
         <hr>
         <p>{{page.content|safe}}</p>
@@ -13,9 +14,9 @@
 </div>
 <br>
 <div class="row">
-    <div class="col">
+    <div class="col" id="card-wrapper">
         {% for post in posts %}
-        <div class="card">
+        <div {% if forloop.counter > 5 %}class="card d-none"{% else %} class="card"{% endif %} id="card-{{forloop.counter}}">
             <h5 class="card-header" style="color: white; background-color: rgb(65, 151, 150); font-weight: 400;">
                 {{post.date_posted|date:"d F, Y"}}
                 {% if request.user.is_authenticated %}
@@ -37,6 +38,9 @@
         </div>
         <br>
         {% endfor %}
+        <div class="card bg-light p-3 text-center" href="#" id="load-more" style="cursor: pointer;">
+            Load more
+        </div>
     </div>
     <div class="col-md-4">
         <div class="mb-2"

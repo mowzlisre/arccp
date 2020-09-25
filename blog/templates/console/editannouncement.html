@@ -18,8 +18,7 @@
             <form method="POST" action="">
                 {% csrf_token %}
                 <label for="">Announcement</label>
-                {% render_field form.announcement class="form-control" %}
-                {% render_field form.author class="hidden" %}<br>
+                <textarea type="text" class="form-control">{{obj.announcement}}</textarea>
                 <button type="submit" class="btn btn-primary">Post</button>
             </form>
             <hr>

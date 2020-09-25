@@ -13,31 +13,32 @@ def console(request):
 def newpost(request):
     if request.user.is_superuser:
         objs = Post.objects.all()
-        if request.method == 'GET':
-            form = PostForm()
-            form.fields['author'].initial=request.user  
-        else:  # POST
-            form = PostForm(request.POST)
-            if form.is_valid():
-                obj = form.save(commit=False)
-                obj.save()
+        if request.method == "POST":
+            post = Post()
+            post.title = request.POST.get("title")
+            post.content = request.POST.get("content")
+            post.tag = request.POST.get("tag")
+            post.link = request.POST.get("link")
+            post.author = request.user
+            post.save()
             return redirect('newpost')
-        return render(request, 'console/newpost.html', {'form': form, 'objs': objs })
+        return render(request, 'console/newpost.html', {'objs': objs })
     else:
         return redirect("404")
 
 def editpost(request, pk):
     if request.user.is_superuser:
-        obj = Post.objects.get(id=pk)
-        if request.method == 'GET':
-            form = PostForm(instance=obj)
-            objs = Post.objects.all()
-        else:  # POST
-            form = PostForm(request.POST, instance=obj)
-            if form.is_valid():
-                form.save()
+        ins = Post.objects.get(id=pk)
+        objs = Post.objects.all()
+        if request.method == "POST":
+            ins.title = request.POST.get("title")
+            ins.content = request.POST.get("content")
+            ins.tag = request.POST.get("tag")
+            ins.link = request.POST.get("link")
+            ins.author = request.user
+            ins.save()
             return redirect('newpost')
-        return render(request, 'console/editpost.html', {'form': form, 'objs': objs })
+        return render(request, 'console/editpost.html', {"ins": ins,'objs': objs  })
     else:
         return redirect("404")
 
@@ -52,30 +53,26 @@ def deletepost(request, pk):
 def newannouncement(request):
     if request.user.is_superuser:
         objs = Announcement.objects.all()
-        if request.method == 'GET':
-            form = AnnouncementForm()
-            form.fields['author'].initial=request.user  
-        else:  # POST
-            form = AnnouncementForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('newannouncement')
-        return render(request, 'console/newannouncement.html', {'form': form, 'objs': objs })
+        if request.method == 'POST':
+            announcement = Announcement()
+            announcement.announcement = request.POST.get("announcement")
+            announcement.author = request.user
+            announcement.save()
+            return redirect('newannouncement')
+        return render(request, 'console/newannouncement.html', {'objs': objs })
     else:
         return redirect("404")
 
 def editannouncement(request, pk):
     if request.user.is_superuser:
-        obj =Announcement.objects.get(id=pk)
-        if request.method == 'GET':
-            form = AnnouncementForm(instance=obj)
-            objs = Announcement.objects.all()
-        else:  # POST
-            form = AnnouncementForm(request.POST, instance=obj)
-            if form.is_valid():
-                form.save()
+        objs = Announcement.objects.all()
+        obj = Announcement.objects.get(id=pk)
+        if request.method == 'POST':
+            obj.announcement = request.POST.get("announcement")
+            obj.author = request.user
+            obj.save()
             return redirect('newannouncement')
-        return render(request, 'console/editannouncement.html', {'form': form, 'objs': objs })
+        return render(request, 'console/editannouncement.html', {'objs': objs, 'obj': obj })
     else:
         return redirect("404")
 

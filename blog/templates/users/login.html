@@ -1,4 +1,3 @@
-{% load widget_tweaks %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -24,10 +23,10 @@
             <form action="{% url 'login' %}" method="POST">
                 {% csrf_token %}
                 <label>Username</label>
-                {% render_field form.username class="form-control" %}
+                <input type="text" class="form-control" name="username">
                 <br>
                 <label>Password</label>
-                {% render_field form.password class="form-control" %}
+                <input type="password" name="password" class="form-control">
                 <br><br>
                 <button type="submit" class="btn btn-info float-right">Login</button>
             </form>

@@ -12,13 +12,25 @@
             <form method="POST" action="">
                 {% csrf_token %}
                 <label for="">Title</label>
-                {% render_field form.title class="form-control" %}
+                <input type="text" class="form-control" name="title"  value="{{ins.title}}">
                 <label for="">Content</label>
-                {% render_field form.content class="form-control" %}
+                <div class="django-ckeditor-widget w-100" data-field-id="id_content" style="display: inline-block;">
+                    <textarea cols="40" id="id_content" name="content" rows="10" required data-processed="0"
+                        data-config="{&quot;skin&quot;: &quot;moono-lisa&quot;, &quot;toolbar_Basic&quot;: [[&quot;Source&quot;, &quot;-&quot;, &quot;Bold&quot;, &quot;Italic&quot;]], &quot;toolbar_Full&quot;: [[&quot;Styles&quot;, &quot;Format&quot;, &quot;Bold&quot;, &quot;Italic&quot;, &quot;Underline&quot;, &quot;Strike&quot;, &quot;SpellChecker&quot;, &quot;Undo&quot;, &quot;Redo&quot;], [&quot;Link&quot;, &quot;Unlink&quot;, &quot;Anchor&quot;], [&quot;Image&quot;, &quot;Flash&quot;, &quot;Table&quot;, &quot;HorizontalRule&quot;], [&quot;TextColor&quot;, &quot;BGColor&quot;], [&quot;Smiley&quot;, &quot;SpecialChar&quot;], [&quot;Source&quot;]], &quot;toolbar&quot;: null, &quot;height&quot;: 291, &quot;width&quot;: &quot;100%&quot;, &quot;filebrowserWindowWidth&quot;: 940, &quot;filebrowserWindowHeight&quot;: 725, &quot;language&quot;: &quot;en-us&quot;}"
+                        data-external-plugin-resources="[]" data-id="id_content" data-type="ckeditortype">{{ins.content}}</textarea>
+                </div>
                 <label for="">Tag</label>
-                {% render_field form.tag class="form-control" %}
+                <select name="tag" class="form-control">
+                    <option {% if ins.tag == 'PG TRB' %}selected{% endif %} value="PG TRB">PG TRB</option>
+                    <option {% if ins.tag == 'POLY TRB' %}selected{% endif %} value="POLY TRB">POLY TRB</option>
+                    <option {% if ins.tag == 'ENGG TRB' %}selected{% endif %} value="ENGG TRB">ENGG TRB</option>
+                    <option {% if ins.tag == 'TNSET TRB' %}selected{% endif %} value="TNSET">TNSET</option>
+                    <option {% if ins.tag == 'UG TRB' %}selected{% endif %} value="UG TRB">UG TRB</option>
+                    <option {% if ins.tag == 'SAMPLE MATERIALS' %}selected{% endif %} value="SAMPLE MATERIALS">SAMPLE MATERIALS</option>
+                    <option {% if ins.tag == 'ARCHIVES' %}selected{% endif %} value="ARCHIVES">ARCHIVES</option>
+                </select>
                 <label for="">Link</label>
-                {% render_field form.link class="form-control" %}
+                <input type="url" name="link" class="form-control" value="{{ins.link}}">
                 <br>
                 <button type="submit" class="btn btn-primary float-right"> Update</button>
                 <a href="{% url 'blog-home' %}" class="btn btn-danger">Delete</a>
@@ -27,17 +39,17 @@
             <div class="container">
                 <h2>Posts</h2>
                 {% for obj in objs %}
-                    <p class="m-1">{{obj.title}}
-                        <a href="{% url 'deletepost' pk=obj.id %}" class="fa fa-trash float-right mr-2"></a>
-                        <a href="{% url 'editpost' pk=obj.id %}" class="fa fa-pencil float-right mr-3"></a>
-                    </p>
-                    <hr class="m-1">
+                <p class="m-1">{{obj.title}}
+                    <a href="{% url 'deletepost' pk=obj.id %}" class="fa fa-trash float-right mr-2"></a>
+                    <a href="{% url 'editpost' pk=obj.id %}" class="fa fa-pencil float-right mr-3"></a>
+                </p>
+                <hr class="m-1">
                 {% endfor %}
             </div>
         </div>
         <br>
-        </div>
     </div>
-    <br>
-    <br>
-    {% endblock content %}
+</div>
+<br>
+<br>
+{% endblock content %}

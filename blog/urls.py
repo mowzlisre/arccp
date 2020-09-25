@@ -18,14 +18,14 @@ urlpatterns=[
     path('notfound/', c_views.error404, name='404'),
     #PostViews
     path('console/post/', c_views.newpost, name='newpost'),
-    path('console/post/<int:pk>/', c_views.editpost, name='editpost'),
-    path('console/post/<int:pk>/delete/', c_views.deletepost, name='deletepost'),
+    path('console/post/<pk>/', c_views.editpost, name='editpost'),
+    path('console/post/<pk>/delete/', c_views.deletepost, name='deletepost'),
     #AnnouncementViews
     path('console/announcement/', c_views.newannouncement, name='newannouncement'),
-    path('console/announcement/<int:pk>/', c_views.editannouncement, name='editannouncement'),
-    path('console/announcement/<int:pk>/delete/', c_views.deleteannouncement, name='deleteannouncement'),
+    path('console/announcement/<pk>/', c_views.editannouncement, name='editannouncement'),
+    path('console/announcement/<pk>/delete/', c_views.deleteannouncement, name='deleteannouncement'),
     #PageDetails & Website
-    path('console/pages/<int:pk>/', c_views.pageedit, name='pageedit'),
+    path('console/pages/<pk>/', c_views.pageedit, name='pageedit'),
     path('console/website/', c_views.websiteedit, name='websiteedit'),
 
 ]
