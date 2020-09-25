@@ -3,9 +3,9 @@
 {% load widget_tweaks %}
 
 <style>
-.hidden{
-    display: none;
-}
+    .hidden {
+        display: none;
+    }
 </style>
 
 <div class="container">
@@ -18,14 +18,28 @@
             <form method="POST" action="">
                 {% csrf_token %}
                 <label for="">Title</label>
-                {% render_field form.title class="form-control" %}
+                <input type="text" class="form-control" name="title">
                 <label for="">Content</label>
-                {% render_field form.content class="form-control" %}
+                <div class="django-ckeditor-widget w-100" data-field-id="id_content" style="display: inline-block;">
+                    <textarea cols="40" id="id_content" name="content" rows="10" required data-processed="0"
+                        data-config="{&quot;skin&quot;: &quot;moono-lisa&quot;, &quot;toolbar_Basic&quot;: [[&quot;Source&quot;, &quot;-&quot;, &quot;Bold&quot;, &quot;Italic&quot;]], &quot;toolbar_Full&quot;: [[&quot;Styles&quot;, &quot;Format&quot;, &quot;Bold&quot;, &quot;Italic&quot;, &quot;Underline&quot;, &quot;Strike&quot;, &quot;SpellChecker&quot;, &quot;Undo&quot;, &quot;Redo&quot;], [&quot;Link&quot;, &quot;Unlink&quot;, &quot;Anchor&quot;], [&quot;Image&quot;, &quot;Flash&quot;, &quot;Table&quot;, &quot;HorizontalRule&quot;], [&quot;TextColor&quot;, &quot;BGColor&quot;], [&quot;Smiley&quot;, &quot;SpecialChar&quot;], [&quot;Source&quot;]], &quot;toolbar&quot;: null, &quot;height&quot;: 291, &quot;width&quot;: &quot;100%&quot;, &quot;filebrowserWindowWidth&quot;: 940, &quot;filebrowserWindowHeight&quot;: 725, &quot;language&quot;: &quot;en-us&quot;}"
+                        data-external-plugin-resources="[]" data-id="id_content"
+                        data-type="ckeditortype"></textarea>
+                </div>
                 <label for="">Tag</label>
-                {% render_field form.tag class="form-control" %}
+                <select name="tag" class="form-control">
+                    <option value="PG TRB">PG TRB</option>
+                    <option value="POLY TRB">POLY TRB</option>
+                    <option value="ENGG TRB">ENGG TRB</option>
+                    <option value="TNSET">TNSET</option>
+                    <option value="UG TRB">UG TRB</option>
+                    <option value="SAMPLE MATERIALS">SAMPLE
+                        MATERIALS</option>
+                    <option value="ARCHIVES">ARCHIVES</option>
+                </select>
                 <label for="">Link</label>
-                {% render_field form.link class="form-control" %}
-                {% render_field form.author class="hidden" %}<br>
+                <input type="url" name="link" class="form-control">
+                <br>
                 <button type="submit" class="btn btn-primary">Post</button>
             </form>
             <hr>
